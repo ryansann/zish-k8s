@@ -28,13 +28,19 @@ function fish_prompt
   # line 1
   set_color -o red
   printf '┌─<'
+
+  # user
   set_color -o blue
   printf '%s ' (whoami)
   set_color $fish_color_autosuggestion[1]
+  
+  # host
   printf '@ '
   set_color cyan
   printf '%s ' (hostname|cut -d . -f 1)
   set_color $fish_color_autosuggestion[1]
+  
+  # short path
   printf 'in '
   set_color -o green
   printf '%s' (prompt_pwd)
@@ -46,12 +52,15 @@ function fish_prompt
   set_color -o red
   printf '└─<'
   set_color yellow
+
+  # git
   printf '%s' (__fish_git_prompt)
   if [ (_is_git_dirty) ]
     set_color blue
     printf '* '
   end
 
+  # k8s
   set -l k8s (kubectl_status)
   if [ ! -z "$k8s" ]
     set_color -o purple
