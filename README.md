@@ -2,7 +2,7 @@
 
 Fish zish theme modified to include kubectl information
 
-![zish-k8s](./zish_k8s_preview.png)
+![zish-k8s](./zish-k8s.png)
 
 ## Left prompt
 User, host, abbreviated path, and git branch info
