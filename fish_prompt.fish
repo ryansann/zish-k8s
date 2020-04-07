@@ -21,7 +21,7 @@ function kubectl_status
   set -l ns (kubectl config view -o "jsonpath={.contexts[?(@.name==\"$ctx\")].context.namespace}")
   [ -z $ns ]; and set -l ns 'default'
 
-  echo (set_color green)$KUBECTL_PROMPT_ICON" "(set_color purple)"$ctx$KUBECTL_PROMPT_SEPARATOR$ns"
+  echo (set_color purple)"[$ctx$KUBECTL_PROMPT_SEPARATOR$ns]"(set_color green)$KUBECTL_PROMPT_ICON
 end
 
 function fish_prompt
@@ -57,17 +57,14 @@ function fish_prompt
   printf '%s' (__fish_git_prompt)
   if [ (_is_git_dirty) ]
     set_color blue
-    printf '* '
+    printf '*'
   end
+  printf ' '
 
   # k8s
   set -l k8s (kubectl_status)
   if [ ! -z "$k8s" ]
-    set_color -o purple
-    printf '['
-    printf '%s' (kubectl_status)
-    set_color -o purple
-    printf '] '
+    printf '%s ' (kubectl_status)
   end
 
   set_color -o red
